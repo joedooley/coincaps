@@ -34,9 +34,9 @@
               <td class="text-xs-right">{{ props.item.rank }}</td>
               <td class="text-xs-right">{{ props.item.symbol }}</td>
               <td>
-                <a router href="/coins">
-                {{ props.item.name }}
-                </a>
+                <router-link :to="{ name: 'coin', params: { id: props.item.id }}">
+                  {{ props.item.name }}
+                </router-link>
               </td>
               <td class="text-xs-right">{{ props.item.market_cap_usd }}</td>
               <td class="text-xs-right">{{ props.item.price_usd }}</td>
