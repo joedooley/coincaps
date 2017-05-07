@@ -23,6 +23,7 @@
       </v-sidebar>
       <v-content>
         <v-container fluid>
+          <router-view></router-view>
           <v-data-table
                   v-bind:headers="headers"
                   v-model="items"
@@ -47,7 +48,6 @@
               <td class="text-xs-right">{{ props.item.percent_change_7d }}</td>
             </template>
           </v-data-table>
-          <router-view></router-view>
         </v-container>
       </v-content>
     </main>

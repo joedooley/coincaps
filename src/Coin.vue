@@ -21,11 +21,11 @@
 
 		beforeCreate() {
 			const self = this
-			const postId = `https://api.coinmarketcap.com/v1/ticker/${self.$route.params.id}`
+			const coinId = `https://api.coinmarketcap.com/v1/ticker/${self.$route.params.id}`
 
-			axios.get(postId)
+			axios.get(coinId)
 			     .then(response => {
-				     this.post = response.data
+				     this.coin = response.data
 			     })
 			     .catch(error => {
 				     console.log(error)
