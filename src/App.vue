@@ -47,9 +47,9 @@
               <td class="text-xs-right">{{ props.item.percent_change_7d }}</td>
             </template>
           </v-data-table>
+          <router-view></router-view>
         </v-container>
       </v-content>
-      <router-view></router-view>
     </main>
     <v-footer>Footer</v-footer>
   </v-app>

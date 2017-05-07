@@ -4,7 +4,8 @@ import App from './App.vue'
 import Vuetify from 'vuetify'
 import Coin from './Coin.vue'
 
-Vue.use(Vuetify, VueRouter)
+Vue.use(VueRouter)
+Vue.use(Vuetify)
 
 const routes = [
 	{ path: '/coins/:id', name: 'coin', component: Coin }
