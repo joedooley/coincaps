@@ -1,7 +1,7 @@
 <template>
 	<div id="coin">
 		<h2 class="post-title">
-			{{coin.name}}
+			{{ coin.name }} ({{ coin.symbol }})
 		</h2>
 	</div>
 </template>
@@ -12,10 +12,18 @@
 
 	export default {
 		name: 'coin',
-
 		data() {
 			return {
 				coin: []
+			}
+		},
+		metaInfo() {
+			return {
+				title: `${this.coin.name} Details`,
+				titleTemplate: '%s | CoinCaps.io',
+				meta: [
+					{ vmid: 'description', name: 'description', content: `${this.coin.name} information needs to be updated!` }
+				]
 			}
 		},
 
@@ -25,11 +33,12 @@
 
 			axios.get(coinId)
 			     .then(response => {
-				     this.coin = response.data
+				     this.coin = response.data[0]
+				     console.log(this.coin)
 			     })
 			     .catch(error => {
 				     console.log(error)
-				     this.data = []
+				     this.coin = []
 			     })
 		}
 	}
