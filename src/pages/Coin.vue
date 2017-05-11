@@ -1,5 +1,18 @@
 <template>
 	<div id="coin">
+		<v-card>
+			<v-card-title>
+				<h2 class="table-title text-xs-center">{{ coin.name }} ({{ coin.symbol }})</h2>
+				<v-spacer class=""></v-spacer>
+				<v-text-field
+						append-icon="search"
+						label="Search Coins..."
+						single-line
+						hide-details
+						v-model="search"
+				></v-text-field>
+			</v-card-title>
+		</v-card>
 		<h2 class="post-title">
 			{{ coin.name }} ({{ coin.symbol }})
 		</h2>
@@ -14,6 +27,7 @@
 		name: 'coin',
 		data() {
 			return {
+				search: null,
 				coin: []
 			}
 		},
