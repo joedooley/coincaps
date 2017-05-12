@@ -5,7 +5,6 @@
       <v-content>
         <v-container fluid>
           <router-view></router-view>
-          <!--<data-table apiUrl="https://api.coinmarketcap.com/v1/ticker/?limit=20"></data-table>-->
         </v-container>
       </v-content>
     </main>

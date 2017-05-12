@@ -10,9 +10,11 @@
   "dependencies": {
     "autobahn": "^17.5.1",
     "axios": "^0.16.1",
+    "chart.js": "^2.5.0",
     "poloniex.js": "0.0.7",
     "underscore": "^1.8.3",
     "vue": "^2.3.2",
+    "vue-chartjs": "^2.6.2",
     "vue-gtm": "^1.0.1",
     "vue-meta": "^0.5.6",
     "vue-router": "^2.5.3",

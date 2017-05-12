@@ -43,9 +43,10 @@
 
 		beforeCreate() {
 			const self = this
-			const coinId = `https://api.coinmarketcap.com/v1/ticker/${self.$route.params.id}`
+			const corsProxy = 'https://cors-anywhere.herokuapp.com/'
+			const coinIdApi = `${corsProxy}https://api.coinmarketcap.com/v1/ticker/${self.$route.params.id}`
 
-			axios.get(coinId)
+			axios.get(coinIdApi)
 			     .then(response => {
 				     this.coin = response.data[0]
 				     console.log(this.coin)

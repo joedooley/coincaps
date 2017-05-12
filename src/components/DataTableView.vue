@@ -124,7 +124,8 @@
 
 		methods: {
 			getCoins(api) {
-				api = this.apiUrl
+				const corsProxy = 'https://cors-anywhere.herokuapp.com/'
+				api = corsProxy + this.apiUrl
 
 				axios.get(api)
 					.then(response => {
