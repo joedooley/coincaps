@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<v-toolbar class="purple">
-			<v-toolbar-title class="hidden-sm-and-down">
+			<v-toolbar-title class="">
 				<h1>
 					<a href="/" title="CoinCaps.io - Cryptocurrency Market Caps">CoinCaps.io</a>
 				</h1>

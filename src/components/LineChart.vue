@@ -1,10 +1,3 @@
-<template>
-	<div id="line-chart">
-
-	</div>
-</template>
-
-
 <script>
 	import { Line } from 'vue-chartjs'
 
@@ -65,8 +58,3 @@
 		}
 	})
 </script>
-
-
-<style lang="stylus">
-
-</style>

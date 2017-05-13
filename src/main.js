@@ -12,7 +12,8 @@ Vue.use(Meta)
 
 const routes = [
 	{ path: '/', name: 'home', component: Home },
-	{ path: '/coins/:id/?convert=USD', name: 'coin', component: Coin }
+	{ path: '/coins/:id/?convert=USD', name: 'coin', component: Coin },
+	{ path: '/:package', component: Coin }
 ]
 
 const router = new VueRouter({

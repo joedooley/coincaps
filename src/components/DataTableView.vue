@@ -1,6 +1,14 @@
 <template>
 	<div id="data-table">
-		<v-card>
+
+		<v-progress-linear v-if="loaded"
+		                     indeterminate
+		                     v-bind:size="70"
+		                     v-bind:width="7"
+		                     class="purple--text"
+		/>
+
+		<v-card v-if="loaded">
 			<v-card-title>
 				<h2 class="table-title text-xs-center">Top 100 Coins</h2>
 				<v-spacer class=""></v-spacer>
@@ -12,6 +20,7 @@
 						v-model="search"
 				></v-text-field>
 			</v-card-title>
+
 			<v-data-table
 					v-bind:headers="headers"
 					v-model="items"
@@ -72,6 +81,7 @@
 
 		data() {
 			return {
+				loaded: false,
 				affiliateLinkBuyChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
 				affiliateLinkSellChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
 				upOrDownClass: '',
@@ -141,6 +151,7 @@
 							items.percent_change_1h = Number.parseFloat(items.percent_change_1h)
 							items.percent_change_24h = Number.parseFloat(items.percent_change_24h)
 							items.percent_change_7d = Number.parseFloat(items.percent_change_7d)
+							this.loaded = true
 						})
 					})
 					.catch(error => {
@@ -177,7 +188,7 @@
 		
 	.table-title {
 		font-size: 36px;
-		margin-bottom: 0;
+		margin-bottom: 20px;
 	}
 
 	.purchase-column {

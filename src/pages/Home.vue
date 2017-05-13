@@ -1,6 +1,6 @@
 <template>
 	<div id="home">
-		<data-table-component apiUrl="https://api.coinmarketcap.com/v1/ticker/?convert=USD"></data-table-component>
+		<data-table-component apiUrl="https://api.coinmarketcap.com/v1/ticker/?convert=USD&limit=100"></data-table-component>
 	</div>
 </template>
 
