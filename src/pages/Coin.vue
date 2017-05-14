@@ -13,16 +13,42 @@
 						v-model="package"
 				></v-text-field>
 
-				<!--<div class="Search__container">-->
-					<!--<input-->
-							<!--class="Search__input"-->
-							<!--@keyup.enter="requestData"-->
-							<!--placeholder="npm package name"-->
-							<!--type="search" name="search"-->
-							<!--v-model="package"-->
-					<!--&gt;-->
-					<!--&lt;!&ndash;<button class="Search__button" @click="requestData">Find</button>&ndash;&gt;-->
-				<!--</div>-->
+				<v-menu
+						lazy
+						:close-on-content-click="false"
+						v-model="periodStartMenu"
+						transition="v-scale-transition"
+						offset-y
+						:nudge-left="56"
+				>
+					<v-text-field
+							slot="activator"
+							label="Start Date"
+							v-model="periodStart"
+							prepend-icon="event"
+							readonly
+					></v-text-field>
+					<v-date-picker v-model="periodStart" no-title scrollable dark></v-date-picker>
+				</v-menu>
+
+				<v-menu
+						lazy
+						:close-on-content-click="false"
+						v-model="periodEndMenu"
+						transition="v-scale-transition"
+						offset-y
+						:nudge-left="56"
+				>
+					<v-text-field
+							slot="activator"
+							label="End Date"
+							v-model="periodEnd"
+							prepend-icon="event"
+							readonly
+					></v-text-field>
+					<v-date-picker v-model="periodEnd" no-title scrollable dark></v-date-picker>
+				</v-menu>
+
 			</v-card-title>
 
 			<div class="error-message" v-if="showError">
@@ -35,7 +61,7 @@
 
 			<div class="Chart__container" v-if="loaded">
 				<div class="Chart__title">
-					Downloads per Day <span>{{ period }}</span>
+					Downloads per Day <span>{{ formattedPeriod }}</span>
 					<hr>
 				</div>
 				<div class="Chart__content">
@@ -49,8 +75,19 @@
 
 
 <script>
+	import cc from 'cryptocompare'
 	import axios from 'axios'
+
 	import LineChart from '../components/LineChart.vue'
+	import {
+		dateToYear,
+		dateToDay,
+		dateToMonth,
+		dateToWeek,
+		dateBeautify } from '../utils/dateFormatter'
+
+	import { removeDuplicate, getDownloadsPerYear } from '../utils/downloadFormatter.js'
+
 
 	export default {
 		name: 'coin',
@@ -73,20 +110,40 @@
 			return {
 				package: null,
 				packageName: '',
-				period: 'last-month',
 				loaded: false,
+				loading: false,
 				downloads: [],
+				downloadsYear: [],
+				downloadsMonth: [],
+				downloadsWeek: [],
 				labels: [],
+				labelsYear: [],
+				labelsMonth: [],
+				labelsWeek: [],
 				showError: false,
 				errorMessage: 'Please enter a package name',
+				periodStartMenu: false,
+				periodEndMenu: false,
+				periodStart: '',
+				periodEnd: null,
+				rawData: [],
+				totalDownloads: [],
 				coin: []
 			}
 		},
 
-		mounted () {
-			if (this.$route.params.package) {
-				this.package = this.$route.params.package
-				this.requestData()
+		computed: {
+			_endDate () {
+				return dateToDay(this.periodEnd)
+			},
+			_startDate () {
+				return dateToDay(this.periodStart)
+			},
+			period () {
+				return this.periodStart ?  `${this._startDate}:${this._endDate}` : 'last-month'
+			},
+			formattedPeriod () {
+				return this.periodStart ? `${dateBeautify(this._startDate)} - ${dateBeautify(this._endDate)}` : 'last-month'
 			}
 		},
 
@@ -108,11 +165,14 @@
 				.then(response => {
 					console.log(this)
 
-					this.downloads = response.data.downloads.map(download => download.downloads)
-					this.labels = response.data.downloads.map(download => download.day)
+					this.rawData = response.data.downloads
+					this.downloads = response.data.downloads.map(entry => entry.downloads)
+					this.labels = response.data.downloads.map(entry => entry.day)
 					this.packageName = response.data.package
 					this.setUrl()
+					this.formatYear()
 					this.loaded = true
+					this.loading = false
 				})
 				.catch(err => {
 					this.errorMessage = err.response.data.error
@@ -126,8 +186,33 @@
 					this.package,
 					`/#/${this.package}`
 				)
+			},
+
+			formatYear () {
+				this.labelsYear = this.rawData
+					.map(entry => dateToYear(entry.day))
+					.reduce(removeDuplicate, [])
+
+				this.downloadsYear = getDownloadsPerYear(this.rawData)
+			},
+
+			coinFetch () {
+				cc.histoDay(['BURST'], ['BTC'])
+					.then(prices => {
+						console.log(prices)
+				})
 			}
 		},
+
+		mounted () {
+			this.coinFetch()
+
+			if (this.$route.params.package) {
+				this.package = this.$route.params.package
+				this.requestData()
+			}
+		},
+
 
 //		beforeCreate() {
 //			const self = this

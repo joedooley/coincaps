@@ -11,6 +11,8 @@
     "autobahn": "^17.5.1",
     "axios": "^0.16.1",
     "chart.js": "^2.5.0",
+    "cryptocompare": "^0.1.0",
+    "moment": "^2.18.1",
     "poloniex.js": "0.0.7",
     "underscore": "^1.8.3",
     "vue": "^2.3.2",

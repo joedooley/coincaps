@@ -4,7 +4,11 @@
     <main>
       <v-content>
         <v-container fluid>
-          <router-view></router-view>
+
+          <transition>
+            <router-view></router-view>
+          </transition>
+
         </v-container>
       </v-content>
     </main>
@@ -39,8 +43,8 @@
   @import '../node_modules/vuetify/src/stylus/settings/_colors'
 
   $theme := {
-    primary: $red.darken-2
-    accent: $red.accent-2
+    primary: $blue-grey.lighten-1
+    accent: $blue-grey.lighten-4
     secondary: $grey.lighten-1
     info: $blue.lighten-1
     warning: $amber.darken-2
