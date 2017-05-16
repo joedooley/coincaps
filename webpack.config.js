@@ -10,7 +10,9 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'public': path.resolve(__dirname, './public')
+			vue: 'vue/dist/vue.js',
+			'public': path.resolve(__dirname, './public'),
+			'static': path.resolve(__dirname, './static')
 		}
 	},
 	module: {
@@ -19,7 +21,10 @@ module.exports = {
 				test: /\.vue$/,
 				loader: 'vue-loader',
 				options: {
-					// vue-loader options go here
+					loaders: {
+						scss: 'vue-style-loader!css-loader!sass-loader',
+						sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+					}
 				}
 			},
 			{

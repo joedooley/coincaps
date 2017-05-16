@@ -137,7 +137,7 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 	.card__title {
 		display: flex;
 		flex-direction: column;

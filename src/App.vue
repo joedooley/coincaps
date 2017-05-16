@@ -4,11 +4,7 @@
     <main>
       <v-content>
         <v-container fluid>
-
-          <transition>
-            <router-view></router-view>
-          </transition>
-
+          <router-view></router-view>
         </v-container>
       </v-content>
     </main>
@@ -29,12 +25,6 @@
 		},
 		components: {
 			HeaderToolbar
-		},
-
-		data() {
-			return {
-
-			}
 		}
 	}
 </script>
@@ -53,9 +43,8 @@
   }
 
   @import '../node_modules/vuetify/src/stylus/main'
-  @import './css/main.css'
+</style>
 
-  body {
-    background: $grey.lighten-5
-  }
+<style lang="scss">
+  @import "css/style.scss";
 </style>

@@ -1,28 +1,22 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import App from './App.vue'
+import router from './router/index.js'
+
 import Vuetify from 'vuetify'
 import Meta from 'vue-meta'
-import Home from './pages/Home.vue'
-import Coin from './pages/Coin.vue'
+import VueAnalytics from 'vue-analytics'
 
-Vue.use(VueRouter)
+const gaTrackingId = 'UA-99027775-1'
+
+
 Vue.use(Vuetify)
 Vue.use(Meta)
-
-const routes = [
-	{ path: '/', name: 'home', component: Home },
-	{ path: '/coins/:id/?convert=USD', name: 'coin', component: Coin },
-	{ path: '/:package', component: Coin }
-]
-
-const router = new VueRouter({
-	mode: 'history',
-	base: __dirname,
-	scrollBehavior: () => ({ y: 0 }),
-	routes
+Vue.use(VueAnalytics, {
+	id: gaTrackingId,
+	router
 })
 
+/* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
