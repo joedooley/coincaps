@@ -1,21 +1,20 @@
 <template>
-  <v-app left>
-	<header-toolbar></header-toolbar>
+  <v-app>
+    <side-navigation></side-navigation>
+    <header-toolbar></header-toolbar>
     <main>
-      <v-content>
-        <v-container fluid>
-          <router-view></router-view>
-        </v-container>
-      </v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
     </main>
-    <v-footer class="purple">
-      <div class="text-xs-right">© 2016</div>
-    </v-footer>
+    <footer-bar></footer-bar>
   </v-app>
 </template>
 
 <script>
+    import SideNavigation from './components/SideNavigation.vue'
 	import HeaderToolbar from './components/HeaderToolbar.vue'
+    import FooterBar from './components/FooterBar.vue'
 
 	export default {
 		name: 'app',
@@ -24,7 +23,9 @@
 			titleTemplate: '%s | CoinCaps.io'
 		},
 		components: {
-			HeaderToolbar
+			SideNavigation,
+			HeaderToolbar,
+            FooterBar
 		}
 	}
 </script>

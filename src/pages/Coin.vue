@@ -113,6 +113,7 @@
 
 
 	export default {
+		name: 'coin',
 		components: {
 			LineChart,
 			PackageInfo,
@@ -237,7 +238,7 @@
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 	hr {
 		display: block;
 		height: 1px;

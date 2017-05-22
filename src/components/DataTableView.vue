@@ -16,11 +16,11 @@
 			</v-card-title>
 
 			<v-data-table
-					v-bind:headers="headers"
-					v-model="items"
-					v-bind:search="search"
-					:rows-per-page="100"
-					:rows-per-page-items="[25, 50, 100]"
+					:headers="headers"
+					:items="items"
+					:search="search"
+					:rows-per-page="rowsPerPage"
+					:rows-per-page-items="rowsPerPageItems"
 					class="elevation-1"
 			>
 
@@ -81,6 +81,8 @@
 				affiliateLinkSellChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
 				upOrDownClass: '',
 				search: null,
+				rowsPerPage: 100,
+				rowsPerPageItems: [5, 15, 25, { text: "All", value: -1 }],
 				headers: [
 					{ text: "Rank", value: "rank" },
 					{ text: "Symbol", value: "symbol", sortable: false },
