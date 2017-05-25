@@ -47,7 +47,7 @@
 
 		methods: {
 			requestData () {
-				axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${this.$route.params.id}&tsym=USD&limit=30&aggregate=3&e=CCCAGG`).
+				axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${this.$route.params.id}&tsym=USD&limit=30&aggregate=3&e=CCCAGG&allData=true`).
 					then((response) => {
 						this.rawData = response.data.Data
 						this.getData()
