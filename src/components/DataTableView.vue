@@ -28,7 +28,7 @@
 					<td class="text-xs-right">{{ props.item.rank }}</td>
 					<td class="text-xs-right">{{ props.item.symbol }}</td>
 					<td>
-						<router-link :to="{ name: 'coin', params: { id: props.item.id }}">
+						<router-link :to="{ name: 'coin', params: { id: props.item.symbol }}">
 							{{ props.item.name }}
 						</router-link>
 					</td>

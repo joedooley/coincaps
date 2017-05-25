@@ -6,6 +6,9 @@ import Vuetify from 'vuetify'
 import Meta from 'vue-meta'
 import VueAnalytics from 'vue-analytics'
 
+import VueHighcharts from 'vue-highcharts'
+import Highcharts from 'highcharts/highstock';
+
 const gaTrackingId = 'UA-99027775-1'
 
 
@@ -15,6 +18,7 @@ Vue.use(VueAnalytics, {
 	id: gaTrackingId,
 	router
 })
+Vue.use(VueHighcharts, { Highcharts })
 
 /* eslint-disable no-new */
 new Vue({
