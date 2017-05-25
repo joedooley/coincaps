@@ -19,5 +19,9 @@
 		a {
 			color: #fff;
 		}
+		
+		p {
+			margin-bottom: 0;
+		}
 	}
 </style>

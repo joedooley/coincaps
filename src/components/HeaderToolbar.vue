@@ -1,5 +1,5 @@
 <template>
-	<v-toolbar class="purple">
+	<v-toolbar class="purple" fixed>
 		<v-toolbar-title>
 			<a href="/" title="CoinCaps.io - Cryptocurrency Market Caps">CoinCaps.io</a>
 		</v-toolbar-title>

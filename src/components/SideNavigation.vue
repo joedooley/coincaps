@@ -2,7 +2,7 @@
 	<v-navigation-drawer persistent light :mini-variant.sync="mini" v-model="drawer">
 		<v-list class="pa-0">
 			<v-list-item>
-				<v-list-tile avatar tag="div" router :to="{ name: 'home' }">
+				<v-list-tile avatar tag="div">
 					<v-list-tile-avatar>
 						<img src="/static/android-chrome-192x192.png" />
 					</v-list-tile-avatar>
@@ -45,7 +45,7 @@
 					{ title: 'Home', icon: 'dashboard', to: { name: 'home' } },
 					{ title: 'Contact', icon: 'question_answer', to: { name: 'contact' } }
 				],
-				mini: false,
+				mini: true,
 				right: null
 			}
 		}
