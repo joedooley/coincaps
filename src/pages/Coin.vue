@@ -1,7 +1,7 @@
 <template>
 	<div class="content">
 		<div class="back-to-coins">
-			<v-btn class="orange darken-2 white--text" router to="/">
+			<v-btn class="cyan accent-4 white--text" router to="/">
 				<v-icon light left>arrow_back</v-icon>Back
 			</v-btn>
 		</div>
@@ -26,7 +26,7 @@
 				rawData: [],
 				options: {
 					title: {
-						text: 'BTC/USD History'
+						text: `${this.$route.params.id}/USD History`
 					},
 					subtitle: {
 						text: 'Source: cryptocompare.com'
@@ -55,6 +55,8 @@
 			requestData () {
 				axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${this.$route.params.id}&tsym=USD&limit=30&aggregate=3&e=CCCAGG&allData=true`).
 					then((response) => {
+						console.log(response)
+
 						this.rawData = response.data.Data
 						this.getData()
 						console.log(this.options)

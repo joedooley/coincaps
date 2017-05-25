@@ -1,5 +1,11 @@
 <template>
-	<v-navigation-drawer persistent light :mini-variant.sync="mini" v-model="drawer">
+	<v-navigation-drawer
+			:persistent="persistent"
+			:permanent="permanent"
+			light
+			:mini-variant.sync="mini"
+			v-model="drawer"
+	>
 		<v-list class="pa-0">
 			<v-list-item>
 				<v-list-tile avatar tag="div">
@@ -46,7 +52,9 @@
 					{ title: 'Contact', icon: 'question_answer', to: { name: 'contact' } }
 				],
 				mini: true,
-				right: null
+				right: null,
+				persistent: true,
+				permanent: true
 			}
 		}
 	}

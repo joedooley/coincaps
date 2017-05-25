@@ -1,5 +1,5 @@
 <template>
-	<v-toolbar class="purple" fixed>
+	<v-toolbar fixed>
 		<v-toolbar-title>
 			<a href="/" title="CoinCaps.io - Cryptocurrency Market Caps">CoinCaps.io</a>
 		</v-toolbar-title>
@@ -7,7 +7,7 @@
 			<v-toolbar-item router :to="{ name: 'home' }">Home</v-toolbar-item>
 			<v-toolbar-item router :to="{ name: 'contact' }">Contact</v-toolbar-item>
 			<v-menu bottom left offset-y origin="top right" transition="v-slide-y-transition">
-				<v-btn icon dark slot="activator">
+				<v-btn icon dark slot="activator" class="white--text">
 					<v-icon>more_vert</v-icon>
 				</v-btn>
 				<v-list>

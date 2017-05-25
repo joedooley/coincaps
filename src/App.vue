@@ -2,7 +2,7 @@
   <v-app>
     <side-navigation></side-navigation>
     <header-toolbar></header-toolbar>
-    <main>
+    <main class="grey lighten-2">
       <v-container fluid>
         <router-view></router-view>
       </v-container>
@@ -34,10 +34,10 @@
   @import '../node_modules/vuetify/src/stylus/settings/_colors'
 
   $theme := {
-    primary: $blue-grey.lighten-1
-    accent: $blue-grey.lighten-4
-    secondary: $grey.lighten-1
-    info: $blue.lighten-1
+    primary: $blue-grey.darken-3
+    accent: $blue-grey.lighten-1
+    secondary: $grey.lighten-2
+    info: $blue.darken-4
     warning: $amber.darken-2
     error: $red.accent-4
     success: $green.lighten-2

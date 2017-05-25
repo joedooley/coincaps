@@ -1,5 +1,5 @@
 <template>
-	<v-footer class="purple">
+	<v-footer>
 		<div class="text-xs-center">
 			<p>©2017 <a href="/" title="CoinCaps.io - Cryptocurrency Market Caps">CoinCaps.io</a> - All Rights Reserved</p>
 		</div>
