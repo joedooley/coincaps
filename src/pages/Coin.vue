@@ -1,12 +1,18 @@
 <template>
-	<highstock :options="options"></highstock>
+	<div class="content">
+		<div class="back-to-coins">
+			<v-btn class="orange darken-2 white--text" router to="/">
+				<v-icon light left>arrow_back</v-icon>Back
+			</v-btn>
+		</div>
+		<highstock :options="options"></highstock>
+	</div>
 </template>
 
 
 <script>
 	import _ from 'underscore'
 	import axios from 'axios'
-	import moment from 'moment'
 
 	export default {
 		name: 'coin',
@@ -58,17 +64,12 @@
 					})
 			},
 
-
 			getData () {
 				const timeData = _.pluck(this.rawData, 'time')
 				const formattedTimeData = _.map(timeData, entry => entry * 1000)
 				const closeData = _.pluck(this.rawData, 'close')
 
 				this.options.series[0].data = _.zip(formattedTimeData, closeData)
-			},
-
-			dailyVolume (volumefrom, volumeto) {
-				return volumeto - volumefrom
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 	<v-navigation-drawer persistent light :mini-variant.sync="mini" v-model="drawer">
 		<v-list class="pa-0">
 			<v-list-item>
-				<v-list-tile avatar tag="div">
+				<v-list-tile avatar tag="div" router :to="{ name: 'home' }">
 					<v-list-tile-avatar>
 						<img src="/static/android-chrome-192x192.png" />
 					</v-list-tile-avatar>
@@ -20,7 +20,7 @@
 		<v-list class="pt-0" dense>
 			<v-divider></v-divider>
 			<v-list-item v-for="item in items" :key="item">
-				<v-list-tile>
+				<v-list-tile router :href="item.to">
 					<v-list-tile-action>
 						<v-icon>{{ item.icon }}</v-icon>
 					</v-list-tile-action>
@@ -42,8 +42,8 @@
 			return {
 				drawer: true,
 				items: [
-					{ title: 'Home', icon: 'dashboard' },
-					{ title: 'Contact', icon: 'question_answer' }
+					{ title: 'Home', icon: 'dashboard', to: { name: 'home' } },
+					{ title: 'Contact', icon: 'question_answer', to: { name: 'contact' } }
 				],
 				mini: false,
 				right: null
