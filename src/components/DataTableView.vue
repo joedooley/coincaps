@@ -22,20 +22,20 @@
 			>
 
 				<template slot="items" scope="props">
-					<td class="text-xs-center">{{ props.item.rank }}</td>
-					<td class="text-xs-right">{{ props.item.symbol }}</td>
+					<td class="text-xs-left">{{ props.item.rank }}</td>
+					<td class="text-xs-left">{{ props.item.symbol }}</td>
 					<td class="text-xs-left">
 						<router-link :to="{ name: 'coin', params: { id: props.item.symbol }, tag: 'td'}">
 							<a>{{ props.item.name }}</a>
 						</router-link>
 					</td>
-					<td class="text-xs-right">{{ props.item.market_cap_usd }}</td>
-					<td class="text-xs-right">{{ props.item.price_usd }}</td>
-					<td class="text-xs-right">{{ props.item.price_btc }}</td>
-					<td class="text-xs-right" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_1h }}%</td>
-					<td class="text-xs-right" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_24h }}%</td>
-					<td class="text-xs-right" :class="setUpOrDownClass(props.item.percent_change_7d)">{{ props.item.percent_change_7d }}%</td>
-					<td class="text-xs-right purchase-column">
+					<td class="text-xs-left">{{ props.item.market_cap_usd }}</td>
+					<td class="text-xs-left">{{ props.item.price_usd }}</td>
+					<td class="text-xs-left">{{ props.item.price_btc }}</td>
+					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_1h }}%</td>
+					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_24h }}%</td>
+					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_7d)">{{ props.item.percent_change_7d }}%</td>
+					<td class="text-xs-left purchase-column">
 						<div>
 							<a :href="affiliateLinkBuyChangelly" target="_blank"
 							   title="Buy Coins instantly with a credit card purchase">
@@ -81,15 +81,15 @@
 					rowsPerPage: 100
 				},
 				headers: [
-					{ text: "Rank", value: "rank" },
-					{ text: "Symbol", value: "symbol", sortable: false },
+					{ text: "Rank", value: "rank", left: true },
+					{ text: "Symbol", value: "symbol", sortable: false, left: true },
 					{ text: "Name", left: true, sortable: false, value: "name" },
-					{ text: "Market Cap", value: "market_cap_usd" },
-					{ text: "Price (USD)", value: "price_usd" },
-					{ text: "Price (BTC)", value: "price_btc" },
-					{ text: "% Change (1h)", value: "percent_change_1h" },
-					{ text: "% Change (24h)", value: "percent_change_24h" },
-					{ text: "% Change (7d)", value: "percent_change_7d" },
+					{ text: "Market Cap", value: "market_cap_usd", left: true },
+					{ text: "Price (USD)", value: "price_usd", left: true },
+					{ text: "Price (BTC)", value: "price_btc", left: true },
+					{ text: "% Change (1h)", value: "percent_change_1h", left: true },
+					{ text: "% Change (24h)", value: "percent_change_24h", left: true },
+					{ text: "% Change (7d)", value: "percent_change_7d", left: true },
 					{ text: "Buy/Sell Coins", left: !0, sortable: !1, value: "buy_sell_coins" }
 				],
 				items: []
@@ -109,7 +109,7 @@
 					const toNumbers = this.items.map(items => {
 						items.rank = Number.parseFloat(items.rank)
 						items.market_cap_usd = Number.parseFloat(items.market_cap_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' })
-						items.price_usd = Number.parseFloat(items.price_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' })
+						items.price_usd = Number.parseFloat(items.price_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 8 })
 						items.price_btc = Number.parseFloat(items.price_btc).toLocaleString('en-US', { minimumFractionDigits: 8 })
 						items.percent_change_1h = Number.parseFloat(items.percent_change_1h)
 						items.percent_change_24h = Number.parseFloat(items.percent_change_24h)
@@ -123,7 +123,7 @@
 			},
 
 			setUpOrDownClass: function (value) {
-				return this.upOrDownClass = value > 0 ? 'green--text text--darken-1 positive-changes' : 'deep-orange--text text--darken-1 negative-changes'
+				return this.upOrDownClass = value > 0 ? 'green--text text--darken-2 positive-changes' : 'red--text text--darken-4 negative-changes'
 			}
 		},
 

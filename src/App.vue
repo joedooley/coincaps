@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    <side-navigation></side-navigation>
-    <header-toolbar></header-toolbar>
+   <header-component></header-component>
     <main class="grey lighten-2">
       <v-container fluid>
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </v-container>
     </main>
     <footer-bar></footer-bar>
@@ -12,8 +13,7 @@
 </template>
 
 <script>
-    import SideNavigation from './components/SideNavigation.vue'
-	import HeaderToolbar from './components/HeaderToolbar.vue'
+    import HeaderComponent from './components/HeaderComponent.vue'
     import FooterBar from './components/FooterBar.vue'
 
 	export default {
@@ -23,8 +23,7 @@
 			titleTemplate: '%s | CoinCaps.io'
 		},
 		components: {
-			SideNavigation,
-			HeaderToolbar,
+			HeaderComponent,
             FooterBar
 		}
 	}
