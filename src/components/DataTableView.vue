@@ -154,6 +154,13 @@
 	}
 
 	#data-table {
+		tbody {
+			a {
+				color: #62727b;
+				text-decoration: none;
+			}
+		}
+
 		tfoot {
 			.menu__content {
 				top: -174px !important;
