@@ -91,8 +91,8 @@
 
   $theme := {
     primary: $blue-grey.darken-3
-    accent: $blue-grey.lighten-3
-    secondary: $grey.lighten-2
+    accent: $orange.darken-1
+    secondary: $orange.accent-4
     info: $blue.darken-4
     warning: $amber.darken-2
     error: $red.accent-4

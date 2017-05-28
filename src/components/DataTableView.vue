@@ -32,7 +32,6 @@
 					<td class="text-xs-left">{{ props.item.market_cap_usd }}</td>
 					<td class="text-xs-left">{{ props.item.price_usd }}</td>
 					<td class="text-xs-left">{{ props.item.price_btc }}</td>
-					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_1h }}%</td>
 					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_24h }}%</td>
 					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_7d)">{{ props.item.percent_change_7d }}%</td>
 					<td class="text-xs-left purchase-column">
@@ -87,7 +86,6 @@
 					{ text: "Market Cap", value: "market_cap_usd", left: true },
 					{ text: "Price (USD)", value: "price_usd", left: true },
 					{ text: "Price (BTC)", value: "price_btc", left: true },
-					{ text: "% Change (1h)", value: "percent_change_1h", left: true },
 					{ text: "% Change (24h)", value: "percent_change_24h", left: true },
 					{ text: "% Change (7d)", value: "percent_change_7d", left: true },
 					{ text: "Buy/Sell Coins", left: !0, sortable: !1, value: "buy_sell_coins" }
@@ -108,10 +106,9 @@
 				.then(() => {
 					const toNumbers = this.items.map(items => {
 						items.rank = Number.parseFloat(items.rank)
-						items.market_cap_usd = Number.parseFloat(items.market_cap_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' })
+						items.market_cap_usd = Number.parseFloat(items.market_cap_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 0 })
 						items.price_usd = Number.parseFloat(items.price_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 8 })
 						items.price_btc = Number.parseFloat(items.price_btc).toLocaleString('en-US', { minimumFractionDigits: 8 })
-						items.percent_change_1h = Number.parseFloat(items.percent_change_1h)
 						items.percent_change_24h = Number.parseFloat(items.percent_change_24h)
 						items.percent_change_7d = Number.parseFloat(items.percent_change_7d)
 					})
@@ -155,9 +152,17 @@
 
 	#data-table {
 		tbody {
+			td {
+				font-weight: 300;
+			}
 			a {
-				color: #62727b;
+				color: #ff6d00;
 				text-decoration: none;
+
+				&:hover,
+				&:active {
+					color: darken(#ff6d00, 0.2);
+				}
 			}
 		}
 
