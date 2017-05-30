@@ -23,29 +23,25 @@
 
 				<template slot="items" scope="props">
 					<td class="text-xs-left">{{ props.item.rank }}</td>
-					<td class="text-xs-left">{{ props.item.symbol }}</td>
-					<td class="text-xs-left">
+					<td class="text-xs-left coin-details-link">
 						<router-link :to="{ name: 'coin', params: { id: props.item.symbol }, tag: 'td'}">
-							<a>{{ props.item.name }}</a>
+							{{ props.item.symbol }}
 						</router-link>
 					</td>
+					<td class="text-xs-left">{{ props.item.name }}</td>
 					<td class="text-xs-left">{{ props.item.market_cap_usd }}</td>
 					<td class="text-xs-left">{{ props.item.price_usd }}</td>
 					<td class="text-xs-left">{{ props.item.price_btc }}</td>
-					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ props.item.percent_change_24h }}%</td>
-					<td class="text-xs-left" :class="setUpOrDownClass(props.item.percent_change_7d)">{{ props.item.percent_change_7d }}%</td>
+					<td class="text-xs-left split" :class="setUpOrDownClass(props.item.percent_change_24h)">
+						<p><span class="value">{{ props.item.percent_change_24h }}%</span>
+						<v-icon light :right="true" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ setUpOrDownArrow(props.item.percent_change_24h) }}</v-icon></p></td>
+					<td class="text-xs-left split" :class="setUpOrDownClass(props.item.percent_change_7d)">
+						<p><span class="value">{{ props.item.percent_change_7d }}%</span>
+							<v-icon dark :class="setUpOrDownClass(props.item.percent_change_7d)">{{ setUpOrDownArrow(props.item.percent_change_7d) }}</v-icon></p></td>
 					<td class="text-xs-left purchase-column">
 						<div>
-							<a :href="affiliateLinkBuyChangelly" target="_blank"
-							   title="Buy Coins instantly with a credit card purchase">
-								<v-btn :flat="true" class="blue-grey lighten-2 white--text buy-button">Buy</v-btn>
-							</a>
-						</div>
-						<div>
-							<a :href="affiliateLinkSellChangelly" target="_blank"
-							   title="Sell Coins Instantly">
-								<v-btn :flat="true" class="blue-grey lighten-3 white--text sell-button">Sell</v-btn>
-							</a>
+							<v-btn :flat="true" class="blue-grey lighten-2 white--text buy-button" router :to="affiliateLinkBuyChangelly" target="_blank">
+								Buy/Sell<v-icon light right>shopping_cart</v-icon></v-btn>
 						</div>
 					</td>
 				</template>
@@ -75,20 +71,21 @@
 				affiliateLinkBuyChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
 				affiliateLinkSellChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
 				upOrDownClass: '',
+				upOrDownArrow: '',
 				search: null,
 				pagination: {
 					rowsPerPage: 100
 				},
 				headers: [
-					{ text: "Rank", value: "rank", left: true },
+					{ text: "#", value: "rank", left: true },
 					{ text: "Symbol", value: "symbol", sortable: false, left: true },
 					{ text: "Name", left: true, sortable: false, value: "name" },
 					{ text: "Market Cap", value: "market_cap_usd", left: true },
 					{ text: "Price (USD)", value: "price_usd", left: true },
 					{ text: "Price (BTC)", value: "price_btc", left: true },
-					{ text: "% Change (24h)", value: "percent_change_24h", left: true },
+					{ text: "% Change (1d)", value: "percent_change_24h", left: true },
 					{ text: "% Change (7d)", value: "percent_change_7d", left: true },
-					{ text: "Buy/Sell Coins", left: !0, sortable: !1, value: "buy_sell_coins" }
+					{ text: "Buy/Sell Coins", left: true, sortable: !1, value: "buy_sell_coins" }
 				],
 				items: []
 			}
@@ -102,6 +99,7 @@
 				axios.get(api)
 				.then(response => {
 					this.items = response.data
+//					console.log(this.items)
 				})
 				.then(() => {
 					const toNumbers = this.items.map(items => {
@@ -121,6 +119,10 @@
 
 			setUpOrDownClass: function (value) {
 				return this.upOrDownClass = value > 0 ? 'green--text text--darken-2 positive-changes' : 'red--text text--darken-4 negative-changes'
+			},
+
+			setUpOrDownArrow: function (value) {
+				return this.upOrDownArrow = value > 0 ? 'arrow_upward' : 'arrow_downward'
 			}
 		},
 
@@ -151,18 +153,48 @@
 	}
 
 	#data-table {
+		thead {
+			th {
+				text-transform: uppercase;
+			}
+		}
 		tbody {
+			tr:nth-child(odd) {
+				background: rgba(0,0,0,0.06);
+			}
+
 			td {
 				font-weight: 300;
 			}
-			a {
-				color: #ff6d00;
-				text-decoration: none;
+			.coin-details-link {
+				color: #37474f;
+				font-weight: 500;
+				text-decoration: underline;
 
 				&:hover,
 				&:active {
-					color: darken(#ff6d00, 0.2);
+					color: darken(#37474f, 0.2);
 				}
+
+			}
+			a {
+				text-decoration: none;
+			}
+
+			.split {
+				p {
+					display: flex;
+					justify-content: flex-start;
+					margin-bottom: 0;
+				}
+
+				i {
+					font-size: 16px;
+				}
+			}
+
+			.value {
+				min-width: 50px;
 			}
 		}
 

@@ -9,6 +9,10 @@ import VueAnalytics from 'vue-analytics'
 import VueHighcharts from 'vue-highcharts'
 import Highcharts from 'highcharts/highstock';
 
+import Axios from 'axios'
+
+Vue.prototype.$http = Axios
+
 const gaTrackingId = 'UA-99027775-1'
 
 

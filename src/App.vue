@@ -6,9 +6,13 @@
               :mini-variant.sync="mini"
               v-model="drawer"
       >
+
           <v-list class="pa-0">
               <v-list-item>
-                  <v-list-tile avatar tag="div">
+                  <v-list-tile
+                          avatar
+                          tag="div"
+                  >
                       <v-list-tile-avatar>
                           <img src="/static/android-chrome-192x192.png" />
                       </v-list-tile-avatar>
@@ -16,13 +20,17 @@
                           <v-list-tile-title>CoinCaps.io</v-list-tile-title>
                       </v-list-tile-content>
                       <v-list-tile-action>
-                          <v-btn icon @click.native.stop="mini = !mini">
+                          <v-btn
+                                  icon
+                                  @click.native.stop="mini = !mini"
+                          >
                               <v-icon>chevron_left</v-icon>
                           </v-btn>
                       </v-list-tile-action>
                   </v-list-tile>
               </v-list-item>
           </v-list>
+
           <v-list class="pt-0" dense>
               <v-divider></v-divider>
               <v-list-item v-for="item in items" :key="item">
@@ -36,19 +44,27 @@
                   </v-list-tile>
               </v-list-item>
           </v-list>
+
       </v-navigation-drawer>
 
       <v-toolbar fixed>
-          <v-toolbar-side-icon light @click.native.stop="drawer = !drawer" v-tooltip:right="{ html: 'Click to open navigation' }"></v-toolbar-side-icon>
+          <v-toolbar-side-icon
+                  light
+                  @click.native.stop="drawer = !drawer"
+                  v-tooltip:right="{ html: 'Click to open navigation' }"
+          ></v-toolbar-side-icon>
           <v-toolbar-title>
               <a href="/" title="CoinCaps.io - Cryptocurrency Market Caps">CoinCaps.io</a>
           </v-toolbar-title>
-          <v-text-field prepend-icon="search" label="Search..." hide-details single-line light></v-text-field>
+          <!--<v-text-field prepend-icon="search" label="Search..." hide-details single-line light></v-text-field>-->
+          <typeahead></typeahead>
       </v-toolbar>
 
     <main class="grey lighten-2">
       <v-container fluid>
-          <router-view></router-view>
+          <transition>
+            <router-view></router-view>
+          </transition>
       </v-container>
     </main>
 
@@ -60,14 +76,19 @@
 <script>
     import FooterBar from './components/FooterBar.vue'
 
-	export default {
+    import Typeahead from './components/Typeahead.vue'
+
+
+    export default {
 		name: 'app',
         metaInfo: {
 			title: 'Crypto Currency Prices and Market Data',
 			titleTemplate: '%s | CoinCaps.io'
 		},
+
 		components: {
-            FooterBar
+            FooterBar,
+			Typeahead
 		},
 
 		data() {
@@ -79,10 +100,9 @@
 				drawer: true,
 				clipped: true,
 				mini: false,
-				right: null
+				right: null,
 			}
 		}
-
 	}
 </script>
 
