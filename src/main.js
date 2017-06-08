@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store'
 import App from './App.vue'
 import router from './router/index.js'
 
@@ -26,6 +27,7 @@ Vue.use(VueHighcharts, { Highcharts })
 
 /* eslint-disable no-new */
 new Vue({
+	store,
     el: '#app',
     router,
     render: h => h(App)

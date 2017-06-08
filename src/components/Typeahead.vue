@@ -7,8 +7,7 @@
 			<i class="fa fa-times" v-show="isDirty" @click="reset"></i>
 		</template>
 
-		<input type="text"
-		       class="Typeahead__input"
+		<input class="Typeahead__input"
 		       placeholder="Search Coins..."
 		       autocomplete="off"
 		       v-model="query"
@@ -55,7 +54,7 @@
 				limit: 5,
 				minChars: 3,
 				selectFirst: false,
-				queryParamName: 'search',
+				queryParamName: 'q',
 				items: [],
 				searchItems: []
 			}
@@ -90,8 +89,7 @@
 
 			onHit (item) {
 				console.log(item)
-				window.location.href = 'http://twitter.com/' + item.screen_name
-//				this.$router.push({ name: 'coin', params: { id: item.symbol } })
+				this.$router.push({ name: 'coin', params: { id: item.symbol } })
 			},
 
 			getCoins(api) {
@@ -100,9 +98,11 @@
 				axios.get(api).
 					then(response => {
 						this.items = response.data
+
 						this.searchItems = this.items.map(item => {
 							return item.name.toLowerCase()
 						})
+
 						console.log(this.searchItems)
 
 					}).
