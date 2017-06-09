@@ -28,11 +28,8 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-				loader: 'buble-loader',
-				exclude: /node_modules/,
-				options: {
-					objectAssign: 'Object.assign'
-				}
+				loader: 'babel-loader',
+				exclude: /node_modules/
 			},
 			{
 				test: /\.styl$/,

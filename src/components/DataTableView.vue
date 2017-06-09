@@ -2,7 +2,7 @@
 	<div id="data-table">
 		<v-card class="grey lighten-4">
 			<v-card-title>
-				<h2 class="table-title text-xs-center blue-grey--text text--darken-3">Top 100 Coins</h2>
+				<h2 class="table-title text-xs-center blue-grey--text text--darken-3">Top 100 Coins {{test}}</h2>
 				<v-spacer class=""></v-spacer>
 				<v-text-field
 						append-icon="search"
@@ -52,8 +52,10 @@
 
 
 <script>
+	import { mapState } from 'vuex'
 	import axios from 'axios'
 	import _ from 'underscore'
+	import localforage from 'localforage'
 
 	export default {
 		name: 'data-table-component',
@@ -99,7 +101,12 @@
 				axios.get(api)
 				.then(response => {
 					this.items = response.data
-//					console.log(this.items)
+					localforage.setItem('coins', this.items, (err, value) => {
+						console.log(value)
+					})
+					localforage.getItem('coins', (err, value) => {
+					console.log(value)
+					})
 				})
 				.then(() => {
 					const toNumbers = this.items.map(items => {
@@ -128,6 +135,12 @@
 
 		mounted() {
 			this.getCoins()
+		},
+
+		computed: {
+			...mapState({
+				test: state => state.test
+			})
 		}
 	}
 </script>
