@@ -2,7 +2,7 @@
 	<div id="data-table">
 		<v-card class="grey lighten-4">
 			<v-card-title>
-				<h2 class="table-title text-xs-center blue-grey--text text--darken-3">Top 100 Coins {{test}}</h2>
+				<h2 class="table-title text-xs-center blue-grey--text text--darken-3">Top 100 Coins</h2>
 				<v-spacer class=""></v-spacer>
 				<v-text-field
 						append-icon="search"
@@ -32,16 +32,23 @@
 					<td class="text-xs-left">{{ props.item.market_cap_usd }}</td>
 					<td class="text-xs-left">{{ props.item.price_usd }}</td>
 					<td class="text-xs-left">{{ props.item.price_btc }}</td>
+					<td class="text-xs-left split" :class="setUpOrDownClass(props.item.percent_change_1h)">
+						<p><span class="value">{{ props.item.percent_change_1h }}</span>
+							<v-icon light :right="true" :class="setUpOrDownClass(props.item.percent_change_1h)">{{ setUpOrDownArrow(props.item.percent_change_1h) }}</v-icon></p>
+					</td>
 					<td class="text-xs-left split" :class="setUpOrDownClass(props.item.percent_change_24h)">
-						<p><span class="value">{{ props.item.percent_change_24h }}%</span>
-						<v-icon light :right="true" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ setUpOrDownArrow(props.item.percent_change_24h) }}</v-icon></p></td>
+						<p><span class="value">{{ props.item.percent_change_24h }}</span>
+						<v-icon light :right="true" :class="setUpOrDownClass(props.item.percent_change_24h)">{{ setUpOrDownArrow(props.item.percent_change_24h) }}</v-icon></p>
+					</td>
 					<td class="text-xs-left split" :class="setUpOrDownClass(props.item.percent_change_7d)">
-						<p><span class="value">{{ props.item.percent_change_7d }}%</span>
-							<v-icon dark :class="setUpOrDownClass(props.item.percent_change_7d)">{{ setUpOrDownArrow(props.item.percent_change_7d) }}</v-icon></p></td>
+						<p><span class="value">{{ props.item.percent_change_7d }}</span>
+							<v-icon dark :class="setUpOrDownClass(props.item.percent_change_7d)">{{ setUpOrDownArrow(props.item.percent_change_7d) }}</v-icon></p>
+					</td>
 					<td class="text-xs-left purchase-column">
 						<div>
-							<v-btn :flat="true" class="blue-grey lighten-2 white--text buy-button" router :to="affiliateLinkBuyChangelly" target="_blank">
-								Buy/Sell<v-icon light right>shopping_cart</v-icon></v-btn>
+							<a :href="affiliateLinkBuyChangelly" target="_blank">
+								<v-btn :flat="true" class="blue-grey lighten-2 white--text buy-button">Buy/Sell<v-icon light right>shopping_cart</v-icon></v-btn>
+							</a>
 						</div>
 					</td>
 				</template>
@@ -52,10 +59,11 @@
 
 
 <script>
-	import { mapState } from 'vuex'
+	import Vue from 'vue'
 	import axios from 'axios'
 	import _ from 'underscore'
-	import localforage from 'localforage'
+
+	import { toNum, toPercent, toUsd, toUsdWholeNum, toBtc } from '../utils/dataFormatter'
 
 	export default {
 		name: 'data-table-component',
@@ -71,7 +79,6 @@
 			return {
 				loading: true,
 				affiliateLinkBuyChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
-				affiliateLinkSellChangelly: 'https://changelly.com/exchange/USD/BTC/1?ref_id=29c66a27c64f',
 				upOrDownClass: '',
 				upOrDownArrow: '',
 				search: null,
@@ -85,12 +92,18 @@
 					{ text: "Market Cap", value: "market_cap_usd", left: true },
 					{ text: "Price (USD)", value: "price_usd", left: true },
 					{ text: "Price (BTC)", value: "price_btc", left: true },
+					{ text: "% Change (1h)", value: "percent_change_1h", left: true },
 					{ text: "% Change (1d)", value: "percent_change_24h", left: true },
 					{ text: "% Change (7d)", value: "percent_change_7d", left: true },
 					{ text: "Buy/Sell Coins", left: true, sortable: !1, value: "buy_sell_coins" }
 				],
 				items: []
 			}
+		},
+
+		created () {
+			this.getCoins()
+			this.$persist(['items'])
 		},
 
 		methods: {
@@ -101,22 +114,19 @@
 				axios.get(api)
 				.then(response => {
 					this.items = response.data
-					localforage.setItem('coins', this.items, (err, value) => {
-						console.log(value)
-					})
-					localforage.getItem('coins', (err, value) => {
-					console.log(value)
-					})
 				})
 				.then(() => {
 					const toNumbers = this.items.map(items => {
-						items.rank = Number.parseFloat(items.rank)
-						items.market_cap_usd = Number.parseFloat(items.market_cap_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 0 })
-						items.price_usd = Number.parseFloat(items.price_usd).toLocaleString('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 8 })
-						items.price_btc = Number.parseFloat(items.price_btc).toLocaleString('en-US', { minimumFractionDigits: 8 })
-						items.percent_change_24h = Number.parseFloat(items.percent_change_24h)
-						items.percent_change_7d = Number.parseFloat(items.percent_change_7d)
+						items.rank = toNum(items.rank)
+						items.market_cap_usd = toUsdWholeNum(items.market_cap_usd)
+						items.price_usd = toUsd(items.price_usd)
+						items.price_btc = toBtc(items.price_btc)
+						items.percent_change_1h = toPercent(items.percent_change_1h)
+						items.percent_change_24h = toPercent(items.percent_change_24h)
+						items.percent_change_7d = toPercent(items.percent_change_7d)
 					})
+					console.log(this.items)
+
 				})
 				.catch(error => {
 				     console.log(error)
@@ -125,23 +135,23 @@
 			},
 
 			setUpOrDownClass: function (value) {
+				if (value) {
+					value = value.replace('%', '')
+				}
 				return this.upOrDownClass = value > 0 ? 'green--text text--darken-2 positive-changes' : 'red--text text--darken-4 negative-changes'
 			},
 
 			setUpOrDownArrow: function (value) {
+				if (value) {
+					value = value.replace('%', '')
+				}
 				return this.upOrDownArrow = value > 0 ? 'arrow_upward' : 'arrow_downward'
 			}
 		},
 
-		mounted() {
-			this.getCoins()
-		},
-
-		computed: {
-			...mapState({
-				test: state => state.test
-			})
-		}
+//		mounted() {
+//			this.getCoins()
+//		}
 	}
 </script>
 

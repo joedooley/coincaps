@@ -1,7 +1,7 @@
 <template>
 	<div class="back-to-coins">
 		<v-btn :primary="primary" class="white--text" router :href="{ name: 'home' }">
-			<v-icon light left>arrow_back</v-icon>Back
+			<v-icon light left>arrow_back</v-icon>Back to coins
 		</v-btn>
 	</div>
 </template>

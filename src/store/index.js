@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
-import coin from './modules/coin'
-import coins from './modules/coins'
 
 Vue.use(Vuex)
 
@@ -20,9 +18,5 @@ export default new Vuex.Store({
 	state,
 	actions,
 	getters,
-	modules: {
-		coin,
-		coins
-	},
 	strict: debug
 })

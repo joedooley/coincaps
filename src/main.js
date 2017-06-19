@@ -10,6 +10,9 @@ import VueAnalytics from 'vue-analytics'
 import VueHighcharts from 'vue-highcharts'
 import Highcharts from 'highcharts/highstock';
 
+import VuePersist from 'vue-persist'
+
+
 import Axios from 'axios'
 
 Vue.prototype.$http = Axios
@@ -24,10 +27,11 @@ Vue.use(VueAnalytics, {
 	router
 })
 Vue.use(VueHighcharts, { Highcharts })
+Vue.use(VuePersist)
 
 /* eslint-disable no-new */
 new Vue({
-	store,
+	//store,
     el: '#app',
     router,
     render: h => h(App)

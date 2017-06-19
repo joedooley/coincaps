@@ -21,10 +21,10 @@
 
 		<ul v-show="hasItems">
 			<li
-					v-for="(item, $item) in items"
-					:class="activeClass($item)"
+					v-for="(item, index) in items"
+					:class="activeClass(index)"
 					@mousedown="hit"
-					@mousemove="setActive($item)"
+					@mousemove="setActive(index)"
 			>
 				<span class="name" v-text="item.name"></span>
 				<span class="screen-name" v-text="item.symbol"></span>
@@ -41,6 +41,8 @@
 	import { _, pick } from 'underscore'
 
 	import VueTypeahead from 'vue-typeahead'
+	import localforage from 'localforage'
+
 
 	export default {
 		name: 'typeahead',
@@ -54,63 +56,59 @@
 				limit: 5,
 				minChars: 3,
 				selectFirst: false,
-				queryParamName: 'q',
+				queryParamName: null,
 				items: [],
 				searchItems: []
 			}
 		},
 
+//		beforeMount() {
+//			this.getCoinsFromStore()
+//		},
+
 		methods: {
-			fetch () {
-//				let items = [
-//					{ name: 'abc' },
-//					{ name: 'aabc' },
-//					{ name: 'aaabc' },
-//					{ name: 'aaaabc' }
-//				]
+//			fetch () {
+////				let items = [
+////					{ name: 'abc' },
+////					{ name: 'aabc' },
+////					{ name: 'aaabc' },
+////					{ name: 'aaaabc' }
+////				]
+////
+////				return Promise.resolve({
+////					data: items.filter((item) => {
+////						console.log(item)
+////						return item.name.startsWith(this.query)
+////					})
+////				})
+//
+//
+////				this.getCoins()
 //
 //				return Promise.resolve({
-//					data: items.filter((item) => {
+//					data: this.searchItems.filter((item) => {
 //						console.log(item)
 //						return item.name.startsWith(this.query)
 //					})
 //				})
-
-
-				this.getCoins()
-
-				return Promise.resolve({
-					data: this.searchItems.filter((item) => {
-						console.log(item)
-						return item.name.startsWith(this.query)
-					})
-				})
-			},
+//			},
 
 			onHit (item) {
 				console.log(item)
 				this.$router.push({ name: 'coin', params: { id: item.symbol } })
 			},
 
-			getCoins(api) {
-				api = this.src
+			getCoinsFromStore() {
+				localforage.getItem('coins', (err, value) => {
+					console.log(value)
 
-				axios.get(api).
-					then(response => {
-						this.items = response.data
-
-						this.searchItems = this.items.map(item => {
-							return item.name.toLowerCase()
-						})
-
-						console.log(this.searchItems)
-
-					}).
-					catch(error => {
-						console.log(error)
-						this.items = []
+					this.searchItems = value.map(item => {
+						return item.name.toLowerCase()
 					})
-			},
+					console.log(this.searchItems)
+
+				})
+			}
 
 //			prepareResponseData (data) {
 //				console.log(data)

@@ -21,6 +21,7 @@
     "vue-gtm": "^1.0.1",
     "vue-highcharts": "0.0.10",
     "vue-meta": "^0.5.6",
+    "vue-persist": "^0.3.0",
     "vue-router": "^2.5.3",
     "vue-server-renderer": "^2.1.10",
     "vue-typeahead": "^2.3.2",
