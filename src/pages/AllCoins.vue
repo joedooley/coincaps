@@ -2,7 +2,7 @@
 	<div id="home">
 		<keep-alive>
 			<data-table-component
-					apiUrl="https://api.coinmarketcap.com/v1/ticker/?convert=USD&limit=100"
+					apiUrl="https://api.coinmarketcap.com/v1/ticker/?convert=USD"
 					:tableTitle="tableTitle"
 			>
 
@@ -16,9 +16,9 @@
 	import DataTableComponent from '../components/DataTableView.vue'
 
 	export default {
-		name: 'home',
+		name: 'all-coins',
 		metaInfo: {
-			title: 'Top 100 Coins By Market Cap',
+			title: 'All Coins By Market Cap',
 			titleTemplate: '%s | CoinCaps.io'
 		},
 		components: {
@@ -27,7 +27,7 @@
 
 		data() {
 			return {
-				tableTitle: 'Top 100 Coins'
+				tableTitle: 'All Coins'
 			}
 		}
 	}

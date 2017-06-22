@@ -2,7 +2,7 @@
 	<div id="data-table">
 		<v-card class="grey lighten-4">
 			<v-card-title>
-				<h2 class="table-title text-xs-center blue-grey--text text--darken-3">Top 100 Coins</h2>
+				<h2 class="table-title text-xs-center blue-grey--text text--darken-3">{{ tableTitle }}</h2>
 				<v-spacer class=""></v-spacer>
 				<v-text-field
 						append-icon="search"
@@ -72,6 +72,10 @@
 			apiUrl: {
 				type: String,
 				default: 'https://api.coinmarketcap.com/v1/ticker/?convert=USD&limit=100'
+			},
+
+			tableTitle: {
+				type: String
 			}
 		},
 

@@ -94,7 +94,8 @@
 		data() {
 			return {
 				items: [
-					{ title: 'Home', icon: 'dashboard', to: { name: 'home' } },
+					{ title: 'Top 100 Coins', icon: 'dashboard', to: { name: 'home' } },
+					{ title: 'All Coins', icon: 'monetization_on', to: { name: 'all-coins' } },
 					{ title: 'Contact', icon: 'question_answer', to: { name: 'contact' } }
 				],
 				drawer: true,
